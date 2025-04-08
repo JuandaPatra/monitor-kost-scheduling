@@ -6,7 +6,8 @@ use App\Models\Kamar;
 use App\Models\Kost;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-
+Use Alert;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class KostController extends Controller
 {
@@ -138,6 +139,10 @@ class KostController extends Controller
             'harga' => $request->harga,
         ]);
 
+      return  FacadesAlert::success('Success Title', 'Success Message');
+
         return response()->json(['success' => 'Data berhasil disimpan!']);
+
+        
     }
 }

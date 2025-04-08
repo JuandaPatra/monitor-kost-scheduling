@@ -13,10 +13,20 @@
     }
 
     @media screen and (max-width: 767px) {
-    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
-        text-align: end !important;
+
+        div.dataTables_wrapper div.dataTables_length,
+        div.dataTables_wrapper div.dataTables_filter,
+        div.dataTables_wrapper div.dataTables_info,
+        div.dataTables_wrapper div.dataTables_paginate {
+            text-align: end !important;
+        }
     }
-}
+
+    @media screen and (max-width: 767px) {
+        .table-container{
+            overflow-x: scroll;
+        }
+    }
 </style>
 @endsection
 
@@ -192,7 +202,8 @@
                     orderable: false,
                     searchable: false
                 }
-            ]
+            ],
+            scrollX: true
         });
     });
 </script>

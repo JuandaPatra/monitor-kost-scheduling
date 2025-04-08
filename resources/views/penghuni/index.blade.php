@@ -98,7 +98,8 @@
                     searchable: false
                 },
                 // { data: 'tanggal_bayar', name: 'tanggal_bayar' }
-            ]
+            ],
+            scrollX: true
         });
     });
 </script>

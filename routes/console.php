@@ -30,41 +30,71 @@ Schedule::call(function () {
     }
 })->everyMinute();
 
+// Schedule::call(function () {
+//     $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
 
-app()->singleton(Schedule::class, function ($app) {
-    return tap(new Schedule(), function (Schedule $schedule) {
-        $schedule->call(function () {
-            $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
+//     $penghunis = Penghuni::where('status', 'Aktif')->get();
 
-            $penghunis = Penghuni::where('status', 'Aktif')->get();
+    
 
-            foreach ($penghunis as $penghuni) {
-                Pembayaran::create(
-                    [
-                        'penghuni_id' => $penghuni->id,
-                        'bulan_tahun' => $bulanTahun
-                    ],
-                    [
-                        'status' => 'Belum Bayar',
-                        'tanggal_bayar' => null
-                    ]
-                );
-            }
+//     foreach ($penghunis as $penghuni) {
 
-            info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
-        })->monthlyOn(1, '00:00');
-
-        $schedule->call(function () {
-            $batas_waktu = Carbon::now()->addDays(7); // 7 hari sebelum jatuh tempo
-
-            $pembayaran_sebelum_tempo = Penghuni::where('status', 'Aktif')
-                ->where('tanggal_masuk', '<=', $batas_waktu->format('Y-m-d'))
-                ->get();
+//         $tanggalBayar = Carbon::parse($penghuni->tanggal_masuk);
+//         $tanggalBayar->addMonth(); // Menambah 1 bulan
 
 
-            foreach ($pembayaran_sebelum_tempo as $penghuni) {
-                Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
-            }
-        })->everyFiveMinutes();
-    });
-});
+//         Pembayaran::create(
+//             [
+//                 'penghuni_id' => $penghuni->id,
+//                 'bulan_tahun' => $bulanTahun,
+//                 'status' => 'Belum Bayar',
+//                 'tanggal_bayar' => $tanggalBayar->format('Y-m-d H:i:s')
+//             ],
+//         );
+//     }
+
+//     info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
+//     Log::info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
+// });
+
+
+// app()->singleton(Schedule::class, function ($app) {
+//     return tap(new Schedule(), function (Schedule $schedule) {
+//         $schedule->call(function () {
+//             $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
+
+//             $penghunis = Penghuni::where('status', 'Aktif')->get();
+
+//             foreach ($penghunis as $penghuni) {
+
+//                 $tanggalBayar = Carbon::parse($penghuni->tanggal_bayar);
+//                 $tanggalBayar->addMonth(); // Menambah 1 bulan
+//                 Pembayaran::create(
+//                     [
+//                         'penghuni_id' => $penghuni->id,
+//                         'bulan_tahun' => $bulanTahun
+//                     ],
+//                     [
+//                         'status' => 'Belum Bayar',
+//                         'tanggal_bayar' => $tanggalBayar
+//                     ]
+//                 );
+//             }
+
+//             info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
+//         })->monthlyOn(1, '00:00');
+
+//         $schedule->call(function () {
+//             $batas_waktu = Carbon::now()->addDays(7); // 7 hari sebelum jatuh tempo
+
+//             $pembayaran_sebelum_tempo = Penghuni::where('status', 'Aktif')
+//                 ->where('tanggal_masuk', '<=', $batas_waktu->format('Y-m-d'))
+//                 ->get();
+
+
+//             foreach ($pembayaran_sebelum_tempo as $penghuni) {
+//                 Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
+//             }
+//         })->everyFiveMinutes();
+//     });
+// });

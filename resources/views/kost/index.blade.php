@@ -105,7 +105,8 @@
                 { data: 'nama_kost', name: 'nama_kost' },
                 { data: 'nomor_kamar', name: 'nomor_kamar' },
                 { data: 'status', name: 'status', orderable: false, searchable: false }
-            ]
+            ],
+            scrollX: true
         });
     });
 </script>
