@@ -6,8 +6,10 @@ use App\Models\Kamar;
 use App\Models\Kost;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-Use Alert;
+use Alert;
+use Exception;
 use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
+use Illuminate\Support\Facades\Session;
 
 class KostController extends Controller
 {
@@ -21,7 +23,7 @@ class KostController extends Controller
         $totalKamar = Kamar::count();
         $totalKamarTerisi = Kamar::where('status', '=', 'Terisi')->count();
 
-        return view('kost.index', compact('totalKost', 'totalKamar' , 'totalKamarTerisi'));
+        return view('kost.index', compact('totalKost', 'totalKamar', 'totalKamarTerisi'));
     }
 
     /**
@@ -64,7 +66,17 @@ class KostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $data = Kamar::select(
+            'kamars.*',
+            'kosts.id',
+            'kosts.nama as nama_kost'
+        )->where('kamars.id', $id)
+            ->leftJoin('kosts', 'kosts.id', '=', 'kamars.kost_id')
+            ->first();
+
+        // return $data;
+        return view('kost.edit', compact('data'));
     }
 
     /**
@@ -72,7 +84,26 @@ class KostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $data = Kamar::whereId($id);
+    
+            $data->update([
+
+                'kost_id' => $request->kost_id,
+                'nomor_kamar' =>$request->nomor_kamar,
+                'harga' => $request->harga
+            ]);
+
+            // return $data;
+
+            return response()->json(['message' => 'success']);
+
+        }catch(Exception $e){
+            return $e;
+
+        }
+
+
     }
 
     /**
@@ -114,8 +145,8 @@ class KostController extends Controller
 
     public function ajaxSelectKamarPenyewa(Request $request)
     {
-        $kosts = Kamar::select('kamars.id', 'kamars.nomor_kamar', 'kosts.nama as nama_kost'  )->leftJoin('kosts','kamars.kost_id', '=', 'kosts.id')
-        ->where('kamars.status', 'Kosong')->get();
+        $kosts = Kamar::select('kamars.id', 'kamars.nomor_kamar', 'kosts.nama as nama_kost')->leftJoin('kosts', 'kamars.kost_id', '=', 'kosts.id')
+            ->where('kamars.status', 'Kosong')->get();
         return response()->json($kosts);
     }
 
@@ -139,10 +170,9 @@ class KostController extends Controller
             'harga' => $request->harga,
         ]);
 
-      return  FacadesAlert::success('Success Title', 'Success Message');
+
+        Session::flash('message', 'Kamar Berhasil ditambah');
 
         return response()->json(['success' => 'Data berhasil disimpan!']);
-
-        
     }
 }

@@ -16,6 +16,10 @@
     .select2 .select2-container .select2-container--default .select2-container--below {
         width: 100% !important;
     }
+
+    .select2-hidden-accessible{
+        width: 100% !important;
+    }
 </style>
 @endsection
 
@@ -25,6 +29,7 @@
     <div id="#success-message"></div>
     <form id="FormAddKamar">
         @csrf
+        @method('PUT')
 
         <div class="mb-3">
             <label for="kost" class="form-label">Pilih Kost</label>
@@ -36,17 +41,23 @@
 
         <div class="mb-3">
             <label for="nomerkamar" class="form-label">Nomer Kamar</label>
-            <input type="string" class="form-control" id="nomerkamar" required>
+            <input type="string" class="form-control" id="nomerkamar" value="{{$data->nomor_kamar}}" required>
 
         </div>
         <div class="mb-3">
             <label for="harga" class="form-label">Harga</label>
-            <input type="harga" class="form-control" id="harga" required>
+            <input type="harga" class="form-control" id="harga" value="{{$data->harga}}" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 @endsection
+
+@php
+    $selectedId = $data->kost_id ?? null;
+    $namaKost = $data->nama_kost ?? null;
+    $id = $data->id;
+@endphp
 
 
 @section('js')
@@ -62,6 +73,11 @@
 <script>
     $(document).ready(function() {
 
+
+        const selectedId = {{ $selectedId ?? 'null' }};
+        const namaKost = @json($namaKost);
+        
+        console.log(selectedId);
         $('#select-kamar').select2({
             ajax: {
                 url: "{{ route('ajaxSelectKamar') }}",
@@ -79,7 +95,15 @@
             }
         })
 
-        $("#select-kamar").on('change', function(){
+       
+        
+        if (selectedId) {
+            const option = new Option(namaKost, selectedId, true, true);
+            $('#select-kamar').append(option).trigger('change');
+        }
+
+
+        $("#select-kamar").on('change', function() {
             let selected = $(this).val()
         })
 
@@ -112,16 +136,18 @@
             });
 
             $.ajax({
-                url: "{{ route('store-kamar') }}",
-                type: "POST",
+                url: "{{ route('kost.update', $id) }}",
+                type: "PUT",
                 data,
                 success: function(response) {
                     $("#success-message").html('<div class="alert alert-success">' + response.success + '</div>');
                     // $("#FormAddKamar")[0].reset();
 
+                    console.log(response);
 
-                    localStorage.setItem("success_message", "Kamar berhasil ditambahkan!");
-                    setTimeout(function(){
+
+                    localStorage.setItem("success_message", "Data Kamar berhasil diubah!");
+                    setTimeout(function() {
                         window.location.href = "/kost"
                     }, 500)
 

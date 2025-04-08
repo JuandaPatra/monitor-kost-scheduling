@@ -4,21 +4,29 @@
 
 @section('css')
 <style>
-
-    #penghuniTable{
+    #penghuniTable {
         width: 100% !important;
     }
 
     @media screen and (max-width: 767px) {
-    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
-        text-align: end !important;
-    }
-}
 
-@media screen and (max-width: 767px) {
-    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
-        text-align: end !important;
-    }}
+        div.dataTables_wrapper div.dataTables_length,
+        div.dataTables_wrapper div.dataTables_filter,
+        div.dataTables_wrapper div.dataTables_info,
+        div.dataTables_wrapper div.dataTables_paginate {
+            text-align: end !important;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+
+        div.dataTables_wrapper div.dataTables_length,
+        div.dataTables_wrapper div.dataTables_filter,
+        div.dataTables_wrapper div.dataTables_info,
+        div.dataTables_wrapper div.dataTables_paginate {
+            text-align: end !important;
+        }
+    }
 </style>
 @endsection
 
@@ -57,7 +65,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="d-flex justify-content-end">
         <a href="{{route('create-kamar')}}" class="btn btn-primary d-block" style="margin-right: 1rem;">Tambah Kamar</a>
         <a href="{{route('kost.create')}}" class="btn btn-primary">Tambah Kost</a>
@@ -77,11 +85,11 @@
                     @foreach ($penghuniBelumBayar as $penghuni)
                         <tr>
                             <td>{{ $penghuni->nama }}</td>
-                            <td>{{ $penghuni->kamar->nomor_kamar ?? '-' }}</td>
-                            <td><span class="badge bg-danger">Belum Bayar</span></td>
-                        </tr>
-                    @endforeach
-                     --}}
+                <td>{{ $penghuni->kamar->nomor_kamar ?? '-' }}</td>
+                <td><span class="badge bg-danger">Belum Bayar</span></td>
+                </tr>
+                @endforeach
+                --}}
             </tbody>
         </table>
     </div>
@@ -90,22 +98,56 @@
 
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    
-    $(document).ready(function () {
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const successMessage = localStorage.getItem("success_message");
+
+        if (successMessage) {
+            console.log("Native DOMContentLoaded");
+            Swal.fire({
+                title: successMessage,
+                icon: 'success',
+                confirmButtonText: 'Oke'
+            })
+            localStorage.removeItem("success_message");
+        }
+    });
+
+    $(document).ready(function() {
+
+
+
         $('#penghuniTable').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('ajax-list-kost') }}",
-            columns: [
-                { data: 'nama_kost', name: 'nama_kost' },
-                { data: 'nomor_kamar', name: 'nomor_kamar' },
-                { data: 'status', name: 'status', orderable: false, searchable: false }
+            columns: [{
+                    data: 'nama_kost',
+                    name: 'nama_kost'
+                },
+                {
+                    data: 'nomor_kamar',
+                    name: 'nomor_kamar'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false,
+                    searchable: false
+                }
             ],
+            columnDefs: [{
+                targets: 1, // kolom ke-2 (index 1)
+                render: function(data, type, row, meta) {
+                    return `<a href="/kost/edit/${row.id} "> ${data}</a>`;
+                }
+            }],
             scrollX: true
         });
     });

@@ -44,5 +44,6 @@ Route::group(['middleware' => ['auth']], function(){
     
     Route::get('/ajaxSelectKamarPenyewa', [KostController::class, 'ajaxSelectKamarPenyewa'])->name('ajaxSelectKamarPenyewa');
     Route::get('/kamar/create', [KostController::class, 'createKamar'])->name('create-kamar');
+    Route::get('/kost/edit/{id}', [KostController::class, 'edit'])->name('edit-kamar');
     Route::resource('kost', KostController::class);
 });

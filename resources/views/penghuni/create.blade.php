@@ -127,7 +127,7 @@
             }
 
 
-            console.log(data);
+            // console.log(data);
 
             $.ajaxSetup({
                 headers: {
@@ -144,7 +144,9 @@
                     $("#FormAddPenyewa")[0].reset();
 
                     setTimeout(function() {
-
+                        console.log(response)
+                        localStorage.setItem("success_message", "Penyewa berhasil ditambahkan!");
+                        window.location.href = "/penyewa";
 
                     }, 2000)
                 },

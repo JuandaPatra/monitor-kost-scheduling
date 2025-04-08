@@ -2,6 +2,35 @@
 
 @section('title', '📊 Daftar Penyewa')
 
+
+@section('css')
+<style>
+    #penghuniTable {
+        width: 100% !important;
+    }
+
+    div.dataTables_wrapper div.dataTables_length select {
+        width: 50px !important;
+    }
+
+    @media screen and (max-width: 767px) {
+
+        div.dataTables_wrapper div.dataTables_length,
+        div.dataTables_wrapper div.dataTables_filter,
+        div.dataTables_wrapper div.dataTables_info,
+        div.dataTables_wrapper div.dataTables_paginate {
+            text-align: end !important;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .table-container{
+            overflow-x: scroll;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="container">
     <!-- <h2 class="mb-4">📊 Dashboard Admin</h2> -->

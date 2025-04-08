@@ -4,8 +4,7 @@
 
 @section('css')
 <style>
-
-    #penghuniTable{
+    #penghuniTable {
         width: 100% !important;
     }
 </style>
@@ -46,7 +45,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="d-flex justify-content-end">
         <a href="{{route('create-kamar')}}" class="btn btn-primary d-block" style="margin-right: 1rem;">Tambah Kamar</a>
         <a href="{{route('kost.create')}}" class="btn btn-primary">Tambah Kost</a>
@@ -66,11 +65,11 @@
                     @foreach ($penghuniBelumBayar as $penghuni)
                         <tr>
                             <td>{{ $penghuni->nama }}</td>
-                            <td>{{ $penghuni->kamar->nomor_kamar ?? '-' }}</td>
-                            <td><span class="badge bg-danger">Belum Bayar</span></td>
-                        </tr>
-                    @endforeach
-                     --}}
+                <td>{{ $penghuni->kamar->nomor_kamar ?? '-' }}</td>
+                <td><span class="badge bg-danger">Belum Bayar</span></td>
+                </tr>
+                @endforeach
+                --}}
             </tbody>
         </table>
     </div>
@@ -79,21 +78,46 @@
 
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    
-    $(document).ready(function () {
+    document.addEventListener("DOMContentLoaded", function() {
+        const successMessage = localStorage.getItem("success_message");
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: successMessage,
+                timer: 3000,
+                showConfirmButton: false
+            });
+            localStorage.removeItem("success_message"); // Hapus setelah ditampilkan
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
         $('#penghuniTable').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{ route('ajax-list-kost') }}",
-            columns: [
-                { data: 'nama_kost', name: 'nama_kost' },
-                { data: 'nomor_kamar', name: 'nomor_kamar' },
-                { data: 'status', name: 'status', orderable: false, searchable: false }
+            columns: [{
+                    data: 'nama_kost',
+                    name: 'nama_kost'
+                },
+                {
+                    data: 'nomor_kamar',
+                    name: 'nomor_kamar'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false,
+                    searchable: false
+                }
             ],
             scrollX: true
         });

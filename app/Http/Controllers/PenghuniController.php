@@ -82,7 +82,7 @@ class PenghuniController extends Controller
                 'status' => 'Terisi'
             ]);
 
-            return 'success';
+            return response()->json(['message' => 'success']);
 
         }catch(Exception $e){
             return $e;

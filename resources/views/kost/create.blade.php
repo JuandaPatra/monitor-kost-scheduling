@@ -75,6 +75,7 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('ajax-list-kost') }}",
+            scrollX: true
             // columns: [
             //     { data: 'nama', name: 'nama' },
             //     { data: 'kamar.nomor_kamar', name: 'kamar.nomor_kamar' },
