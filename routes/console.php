@@ -28,7 +28,7 @@ Schedule::call(function () {
         Log::info('Mengirim email ke: ' . 'juandaent@gmail.com');
         Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
     }
-})->dailyAt('08:00');
+})->everyFiveMinutes();
 
 Schedule::call(function () {
     $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
