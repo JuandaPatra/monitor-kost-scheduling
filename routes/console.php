@@ -28,9 +28,9 @@ Schedule::call(function () {
     // $pembayaran_sebelum_tempo = Penghuni::all();
     foreach ($pembayaran_sebelum_tempo as $penghuni) {
         Log::info('Mengirim email ke: ' . 'juandaent@gmail.com');
-        Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
+    Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
     }
-})->everyMinute();
+})->dailyAt('08:00');
 
 Schedule::call(function () {
     $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01

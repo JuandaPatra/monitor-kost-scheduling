@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Carbon\Carbon;
 
 class ReminderMail extends Mailable
 {
@@ -43,7 +44,7 @@ class ReminderMail extends Mailable
             view: 'email.reminder',
             with:[
                 'nama' =>$this->penghuni->nama,
-                'tanggal' => $this->penghuni->tanggal_masuk
+                'tanggal' => Carbon::parse($this->penghuni->tanggal_bayar)->translatedFormat('d F Y')
                 
             ]
         );
