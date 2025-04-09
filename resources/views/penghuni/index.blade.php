@@ -99,11 +99,25 @@
 
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const successMessage = localStorage.getItem("success_message");
+        if (successMessage) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: successMessage,
+                timer: 3000,
+                showConfirmButton: false
+            });
+            localStorage.removeItem("success_message"); // Hapus setelah ditampilkan
+        }
+    });
     $(document).ready(function() {
         $('#penghuniTable').DataTable({
             processing: true,

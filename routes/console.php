@@ -28,34 +28,34 @@ Schedule::call(function () {
         Log::info('Mengirim email ke: ' . 'juandaent@gmail.com');
         Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
     }
-})->everyMinute();
+})->dailyAt('08:00');
 
-// Schedule::call(function () {
-//     $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
+Schedule::call(function () {
+    $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
 
-//     $penghunis = Penghuni::where('status', 'Aktif')->get();
+    $penghunis = Penghuni::where('status', 'Aktif')->get();
 
     
 
-//     foreach ($penghunis as $penghuni) {
+    foreach ($penghunis as $penghuni) {
 
-//         $tanggalBayar = Carbon::parse($penghuni->tanggal_masuk);
-//         $tanggalBayar->addMonth(); // Menambah 1 bulan
+        $tanggalBayar = Carbon::parse($penghuni->tanggal_masuk);
+        $tanggalBayar->addMonth(); // Menambah 1 bulan
 
 
-//         Pembayaran::create(
-//             [
-//                 'penghuni_id' => $penghuni->id,
-//                 'bulan_tahun' => $bulanTahun,
-//                 'status' => 'Belum Bayar',
-//                 'tanggal_bayar' => $tanggalBayar->format('Y-m-d H:i:s')
-//             ],
-//         );
-//     }
+        Pembayaran::create(
+            [
+                'penghuni_id' => $penghuni->id,
+                'bulan_tahun' => $bulanTahun,
+                'status' => 'Belum Bayar',
+                'tanggal_bayar' => $tanggalBayar->format('Y-m-d H:i:s')
+            ],
+        );
+    }
 
-//     info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
-//     Log::info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
-// });
+    info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
+    Log::info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
+})->monthlyOn(1, '00:00:01');
 
 
 // app()->singleton(Schedule::class, function ($app) {
