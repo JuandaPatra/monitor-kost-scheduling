@@ -57,9 +57,11 @@
                     $("#addKost")[0].reset();
 
                     setTimeout(function(){
-                        window.location.replace('{{ route('kost.index') }}')
 
-                    },2000)
+                        localStorage.setItem("success_message", "Kost berhasil ditambahkan!");
+                        window.location.href = "/kost";
+
+                    },500)
                 },
                 error: function(xhr) {
                     let errors = xhr.responseJSON.errors;

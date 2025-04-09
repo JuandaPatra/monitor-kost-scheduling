@@ -23,7 +23,7 @@
     }
 
     @media screen and (max-width: 767px) {
-        .table-container{
+        .table-container {
             overflow-x: scroll;
         }
     }
@@ -106,6 +106,7 @@
                 <div class="mb-3">
                     <label for="status" class="form-label">Status</label>
                     <select class="form-control" id="status">
+                        <option value="">Pilih Status Pembayaran</option>
                         <option value="Sudah Bayar">Sudah Bayar</option>
                         <option value="Belum Bayar">Belum Bayar</option>
                     </select>
@@ -129,6 +130,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
 
@@ -161,7 +163,14 @@
                     status: status
                 },
                 success: function(response) {
-                    alert(response.message);
+                    // alert(response.message);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: 'Berhasil merubah status pembayaran',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
                     $('#modalUbahStatus').modal('hide');
                     $('#penghuniTable').DataTable().ajax.reload();
                 },

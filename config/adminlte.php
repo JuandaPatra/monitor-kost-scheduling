@@ -305,7 +305,7 @@ return [
     ['text' => 'Kamar', 'url' => '/kost', 'icon' => 'fas fa-bed', 'active' => ['kost*']],
     ['text' => 'Pembayaran', 'url' => '/pembayaran', 'icon' => 'fas fa-wallet'],
     ['text' => 'Rekap', 'url' => '/rekap', 'icon' => 'fas fa-chart-bar'],
-    ['text' => 'Logout', 'url' => '/logout', 'icon' => 'fas fa-sign-out-alt'],
+    // ['text' => 'Logout', 'url' => '/logout', 'icon' => 'fas fa-sign-out-alt'],
 ],
 
 

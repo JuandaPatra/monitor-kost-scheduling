@@ -120,8 +120,8 @@
                     // $("#FormAddKamar")[0].reset();
 
 
-                    localStorage.setItem("success_message", "Kamar berhasil ditambahkan!");
                     setTimeout(function(){
+                        localStorage.setItem("success_message", "Kamar berhasil ditambahkan!");
                         window.location.href = "/kost"
                     }, 500)
 

@@ -107,6 +107,15 @@
 
 
 
+        $('#nohandphone').on('input', function(e) {
+            const input = $(this).val();
+            const onlyNumbers = input.replace(/[^0-9]/g, ''); // hapus semua karakter selain angka
+            if (input !== onlyNumbers) {
+                $(this).val(onlyNumbers); // update input dengan hanya angka
+            }
+        });
+
+
         $("#select-status").on('change', function() {
             let selected = $(this).val()
         })
@@ -122,8 +131,8 @@
                 nama: $('#nama').val(),
                 nomor_hp: $('#nohandphone').val(),
                 kamar_id: $('#select-kamar').val(),
-                status : $('#select-status').val(),
-                tanggal_bayar : $('#tanggal_bayar').val()
+                status: $('#select-status').val(),
+                tanggal_bayar: $('#tanggal_bayar').val()
             }
 
 
@@ -148,7 +157,7 @@
                         localStorage.setItem("success_message", "Penyewa berhasil ditambahkan!");
                         window.location.href = "/penyewa";
 
-                    }, 2000)
+                    }, 500)
                 },
                 error: function(xhr) {
                     let errors = xhr.responseJSON.errors;
