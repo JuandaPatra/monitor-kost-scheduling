@@ -19,8 +19,10 @@ Schedule::call(function () {
 
     $batas_waktu = Carbon::now()->addDays(7);
 
-    $pembayaran_sebelum_tempo = Penghuni::where('status', 'Aktif')
-        ->where('tanggal_masuk', '<=', $batas_waktu->format('Y-m-d'))
+    $pembayaran_sebelum_tempo = Penghuni::select('penghunis.*', 'pembayarans.*')
+        ->leftJoin('pembayarans', 'penghunis.id', '=', 'pembayarans.penghuni_id')
+        ->where('penghunis.status', 'Aktif')
+        ->where('pembayarans.tanggal_bayar', '=', $batas_waktu->format('Y-m-d'))
         ->get();
 
     // $pembayaran_sebelum_tempo = Penghuni::all();
@@ -28,14 +30,14 @@ Schedule::call(function () {
         Log::info('Mengirim email ke: ' . 'juandaent@gmail.com');
         Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
     }
-})->everyFiveMinutes();
+})->everyMinute();
 
 Schedule::call(function () {
     $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
 
     $penghunis = Penghuni::where('status', 'Aktif')->get();
 
-    
+
 
     foreach ($penghunis as $penghuni) {
 

@@ -43,6 +43,7 @@ class ReminderMail extends Mailable
             view: 'email.reminder',
             with:[
                 'nama' =>$this->penghuni->nama,
+                'tanggal' => $this->penghuni->tanggal_masuk
                 
             ]
         );

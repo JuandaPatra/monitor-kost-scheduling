@@ -39,9 +39,7 @@
     <div class="container">
         <div class="header">{{ $title ?? 'Notifikasi' }}</div>
         <div class="content">
-            {!! $body ?? 'Tidak ada isi pesan.' !!}
-
-            sewa a/n {{$nama}} akan berakhir dalam 7 hari lagi silahkan hubungi admin untuk melakukan pembayaran 
+            sewa a/n {{$nama}} akan berakhir dalam 7 hari lagi pada tanggal {{$tanggal}} silahkan hubungi admin untuk melakukan pembayaran 
         </div>
         <div class="footer">Terima kasih,<br>Tim Manajemen Kos</div>
     </div>
