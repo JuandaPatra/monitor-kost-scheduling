@@ -30,7 +30,7 @@ Schedule::call(function () {
         Log::info('Mengirim email ke: ' . 'juandaent@gmail.com');
     Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
     }
-})->dailyAt('08:00');
+})->dailyAt('01:00');
 
 Schedule::call(function () {
     $bulanTahun = Carbon::now()->format('Y-m-01'); // YYYY-MM-01
@@ -57,7 +57,7 @@ Schedule::call(function () {
 
     info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
     Log::info('Scheduler berhasil generate pembayaran untuk bulan ' . $bulanTahun);
-})->monthlyOn(1, '00:00:01');
+})->monthlyOn(31, '16:00:01');
 
 
 // app()->singleton(Schedule::class, function ($app) {

@@ -1,6 +1,21 @@
 @extends('adminlte::page')
 @include('sweetalert::alert')
 @section('title', 'Dashboard Admin')
+@push('css')
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+    body {
+        font-family: "inter" !important;
+        font-size: 1.2em !important;
+    }
+
+    .container{
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important ;
+    }
+</style>
+@endpush
 
 
 {{--
