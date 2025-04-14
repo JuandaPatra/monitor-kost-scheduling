@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Admin</b>KOST',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -305,7 +305,7 @@ return [
     ['text' => 'Kamar', 'url' => '/kost', 'icon' => 'fas fa-bed', 'active' => ['kost*']],
     ['text' => 'Pembayaran', 'url' => '/pembayaran', 'icon' => 'fas fa-wallet'],
     ['text' => 'Rekap', 'url' => '/rekap', 'icon' => 'fas fa-chart-bar'],
-    // ['text' => 'Logout', 'url' => '/logout', 'icon' => 'fas fa-sign-out-alt'],
+    ['text' => 'Template Email', 'url' => '/email', 'icon' => 'fas fa-envelope'],
 ],
 
 

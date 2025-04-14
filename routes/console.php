@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\ReminderMail;
+use App\Models\Email;
 use App\Models\Pembayaran;
 use App\Models\Penghuni;
 use Carbon\Carbon;
@@ -26,9 +27,15 @@ Schedule::call(function () {
         ->get();
 
     // $pembayaran_sebelum_tempo = Penghuni::all();
+
+    $emails = Email::where('status', '=', 'Aktif')->get();
+
+
     foreach ($pembayaran_sebelum_tempo as $penghuni) {
-        Log::info('Mengirim email ke: ' . 'juandaent@gmail.com');
-    Mail::to('juandaent@gmail.com')->send(new ReminderMail($penghuni));
+        foreach ($emails as $email) {
+            Log::info('Mengirim email ke: ' . $email);
+            Mail::to($email)->send(new ReminderMail($penghuni));
+        }
     }
 })->dailyAt('01:00');
 

@@ -14,6 +14,10 @@
         padding-top: 1rem !important;
         padding-bottom: 1rem !important ;
     }
+
+    div.dataTables_wrapper div.dataTables_paginate {
+        padding-top: 1rem !important;
+    }
 </style>
 @endpush
 

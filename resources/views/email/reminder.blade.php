@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Notifikasi' }}</title>
+    <title>{{ $title ?? 'Notifikasi Jatuh Tempo Pembayaran ' }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,11 +37,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">{{ $title ?? 'Notifikasi' }}</div>
+        <div class="header">{{ $title ?? 'Notifikasi Notifikasi Jatuh Tempo Pembayaran' }}</div>
         <div class="content">
-            sewa a/n {{$nama}} akan berakhir dalam 7 hari lagi pada tanggal {{$tanggal}} silahkan hubungi admin untuk melakukan pembayaran 
+            Selamat pagi Admin, sewa atas nama {{$nama}} akan berakhir dalam 7 hari lagi pada tanggal {{$tanggal}} silahkan lakukan penagihan pada penyewa sebelum jatuh tempo 
         </div>
-        <div class="footer">Terima kasih,<br>Tim Manajemen Kos</div>
+        <div class="footer">Terima kasih,<br>Sistem Manajemen Kost</div>
     </div>
 </body>
 </html>

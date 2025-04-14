@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AjaxDashboardController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmailSenderController;
 use App\Http\Controllers\KostController;
 use App\Http\Controllers\PenghuniController;
 use App\Mail\ReminderMail;
@@ -46,4 +47,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/kamar/create', [KostController::class, 'createKamar'])->name('create-kamar');
     Route::get('/kost/edit/{id}', [KostController::class, 'edit'])->name('edit-kamar');
     Route::resource('kost', KostController::class);
+
+    Route::get('/ajaxPenerimaEmail', [EmailSenderController::class, 'ajaxPenerimaKamar'])->name('ajaxPenerimaKamar');
+    Route::resource('email', EmailSenderController::class);
 });
