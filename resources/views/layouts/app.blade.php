@@ -7,12 +7,16 @@
 
     body {
         font-family: "inter" !important;
-        font-size: 1.2em !important;
+        font-size: 1rem !important;
     }
 
     .container{
         padding-top: 1rem !important;
         padding-bottom: 1rem !important ;
+    }
+
+    div.dataTables_wrapper div.dataTables_length select{
+        width: 3rem !important;
     }
 
     div.dataTables_wrapper div.dataTables_paginate {

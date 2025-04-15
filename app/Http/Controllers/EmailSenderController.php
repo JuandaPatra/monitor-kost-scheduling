@@ -33,7 +33,22 @@ class EmailSenderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email',
+            'status' => 'required',
+        ]);
+
+        $deleteemail = Email::where('email', '=', $request->email);
+
+        $deleteemail->delete();
+
+        $email = Email::create([
+            'email' => $request->email,
+            'status' => $request->status
+        ]);
+
+        return response()->json(['success' => 'Data berhasil disimpan!']);
+
     }
 
     /**
@@ -57,7 +72,14 @@ class EmailSenderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $email = Email::where('id','=',$id);
+        $email->update([
+            'email' => $request->email,
+            'status' => $request->status
+
+        ]);
+
+        return response()->json(['success' => 'Data berhasil disimpan!']);
     }
 
     /**
@@ -74,14 +96,6 @@ class EmailSenderController extends Controller
         $email = Email::all();
 
         return DataTables::of($email)
-        ->editColumn('status', function($row){
-            if($row->status == 'Aktif'){
-                return '<span class="badge badge-success">Aktif</span>';
-            }else{
-                return '<span class="badge badge-danger">Nonaktif</span>';
-            }
-        })
-        ->rawColumns(['status'])
         ->make(true);
 
     }

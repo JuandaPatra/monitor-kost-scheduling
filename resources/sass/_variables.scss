@@ -7,3 +7,10 @@ $font-family-sans-serif: 'Inter', sans-serif;
 
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+.custom-select-sm {
+    height: calc(1.8125rem + 2px) !important;
+    padding-top: .25rem !important;
+    padding-bottom: .25rem !important;
+    padding-left: .5rem !important;    
+}

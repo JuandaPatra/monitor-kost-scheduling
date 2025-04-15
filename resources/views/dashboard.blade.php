@@ -8,10 +8,6 @@
         width: 100% !important;
     }
 
-    div.dataTables_wrapper div.dataTables_length select {
-        width: 50px !important;
-    }
-
     @media screen and (max-width: 767px) {
 
         div.dataTables_wrapper div.dataTables_length,
@@ -153,7 +149,6 @@
                 status
             }
 
-            console.log(data)
 
             $.ajax({
                 url: "/dashboard/update-status/" + id,
